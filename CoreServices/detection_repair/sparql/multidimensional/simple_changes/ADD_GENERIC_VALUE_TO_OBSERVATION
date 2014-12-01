@@ -1,0 +1,29 @@
+INSERT INTO <changesOntology> {
+?agvto a co:Add_Generic_Value_To_Observation;
+    co:agvto_p1 ?o;
+	co:agvto_p2 ?p;
+	co:agvto_p3 ?v;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <v2> { 
+FILTER NOT EXISTS { 
+{?p rdf:type diachron:DimensionProperty.}
+UNION 
+{?p rdf:type diachron:MeasureProperty.}
+}
+}
+GRAPH <addedLowLevelChanges> { 
+?o diachron:hasRecordAttribute ?ratt.
+?ratt rdf:type diachron:RecordAttribute;
+      diachron:predicate ?p;
+	  diachron:object ?v.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("agvto",str(?o), str(?p), str(?v), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://agvto/',SHA1(?url))) AS ?agvto).
+}

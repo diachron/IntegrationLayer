@@ -1,0 +1,31 @@
+INSERT INTO <changesOntology> {
+?dga a co:Delete_Generic_Attribute;
+    co:dga_p1 ?x;
+	co:dga_p2 ?att;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <v1> { 
+FILTER NOT EXISTS { 
+{?x rdf:type diachron:DimensionProperty.}
+UNION 
+{?x rdf:type diachron:MeasureProperty.}
+}
+}
+GRAPH <deletedLowLevelChanges> { 
+?x diachron:hasAttribute ?att.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("dga", str(?a), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://dga/',SHA1(?url))) AS ?dga).
+}
+
+#DELETE WHERE {
+#GRAPH <deletedLowLevelChanges> { 
+#?f a diachron:AttributeProperty.
+#}
+#}

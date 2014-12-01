@@ -1,0 +1,23 @@
+INSERT INTO <changesOntology> {
+?aa a co:Add_Attribute;
+    co:aa_p1 ?att;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <addedLowLevelChanges> { 
+?att a diachron:AttributeProperty.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("aa", str(?att), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://aa/',SHA1(?url))) AS ?aa).
+}
+
+#DELETE WHERE {
+#GRAPH <addedLowLevelChanges> { 
+#?f a diachron:AttributeProperty.
+#}
+#}

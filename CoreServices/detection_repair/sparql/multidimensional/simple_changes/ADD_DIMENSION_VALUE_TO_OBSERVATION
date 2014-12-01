@@ -1,0 +1,34 @@
+INSERT INTO <changesOntology> {
+?advto a co:Add_Dimension_Value_To_Observation;
+    co:advto_p1 ?o;
+	co:advto_p2 ?d;
+	co:advto_p3 ?v;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <v2> { 
+?d a diachron:DimensionProperty.
+}
+GRAPH <addedLowLevelChanges> { 
+?o diachron:hasRecordAttribute ?ratt.
+?ratt a diachron:RecordAttribute;
+      diachron:predicate ?d;
+	  diachron:object ?v.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("advto",str(?o), str(?d), str(?v), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://advto/',SHA1(?url))) AS ?advto).
+}
+
+#DELETE WHERE {
+#GRAPH <addedLowLevelChanges> { 
+#?o diachron:hasRecordAttribute ?ratt.
+#?ratt a diachron:RecordAttribute;
+#      diachron:predicate ?d;
+#	  diachron:object ?v.
+#}
+#}

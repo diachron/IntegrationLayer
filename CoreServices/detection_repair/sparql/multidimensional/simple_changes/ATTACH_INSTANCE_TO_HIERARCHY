@@ -1,0 +1,27 @@
+INSERT INTO <changesOntology> {
+?aith a co:Attach_Instance_To_Hierarchy;
+    co:aith_p1 ?h;
+	co:aith_p2 ?i;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <v2> { 
+?h a diachron:Hierarchy.
+}
+GRAPH <addedLowLevelChanges> { 
+?i diachron:inScheme ?h.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("aith",str(?h), str(?i), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://aith/',SHA1(?url))) AS ?aith).
+}
+
+#DELETE WHERE {
+#GRAPH <addedLowLevelChanges> { 
+#?i diachron:inScheme ?h.
+#}
+#}

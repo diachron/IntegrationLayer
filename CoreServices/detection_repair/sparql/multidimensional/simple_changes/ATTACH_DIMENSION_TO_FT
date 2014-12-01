@@ -1,0 +1,24 @@
+INSERT INTO <changesOntology> {
+?adtft a co:Attach_Dimension_To_FT;
+    co:adtft_p1 ?d;
+	co:adtft_p2 ?ft;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <addedLowLevelChanges> { 
+?ft diachron:hasDimension ?d.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("adtft",str(?d), str(?ft), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://adtft/',SHA1(?url))) AS ?adtft).
+}
+
+#DELETE WHERE {
+#GRAPH <addedLowLevelChanges> { 
+#?ft diachron:hasDimension ?d.
+#}
+#}

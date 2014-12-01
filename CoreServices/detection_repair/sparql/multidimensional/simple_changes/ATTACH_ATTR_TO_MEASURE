@@ -1,0 +1,27 @@
+INSERT INTO <changesOntology> {
+?aatm a co:Attach_Attr_To_Measure;
+    co:aatm_p1 ?m;
+	co:aatm_p2 ?a;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <v2> { 
+?m a diachron:MeasureProperty.
+}
+GRAPH <addedLowLevelChanges> { 
+?m diachron:hasAttribute ?a.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("aatm",str(?m), str(?a), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://aatm/',SHA1(?url))) AS ?aatm).
+}
+
+#DELETE WHERE {
+#GRAPH <addedLowLevelChanges> { 
+#?m diachron:hasAttribute ?a.
+#}
+#}

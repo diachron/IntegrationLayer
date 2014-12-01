@@ -1,0 +1,27 @@
+INSERT INTO <changesOntology> {
+?ad a co:Add_Definition;
+    co:ad_p1 ?a;
+    co:ad_p2 ?x;
+    co:old_version ?v1;
+    co:new_version ?v2;
+    co:consumes ?api.
+} 
+WHERE {
+GRAPH <changesOntology> {
+?api a co:Add_Property_Instance;
+     co:api_p1 ?api1;
+     co:api_p2 ?api2;
+     co:api_p3 ?api3;
+     co:old_version ?v1;
+     co:new_version ?v2.
+FILTER NOT EXISTS { ?ad co:consumes ?api. }.
+filter(?api2 = efo:definition).
+BIND (?api1 as ?a).
+BIND (?api3 as ?x).
+BIND(concat(str(?a), str(?x), str(?v1), str(?v2)) as ?url) .
+filter ('v1'=?v1).
+filter ('v2'=?v2).
+
+BIND(IRI(CONCAT('http://ad/',SHA1(?url))) AS ?ad).
+}
+}

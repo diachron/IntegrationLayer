@@ -1,0 +1,24 @@
+INSERT INTO <changesOntology> {
+?dhfd a co:Detach_Hierarchy_From_Dimension;
+    co:dhfd_p1 ?d;
+	co:dhfd_p2 ?h;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <deletedLowLevelChanges> { 
+?d diachron:hasHierarchy ?h.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("dhfd",str(?d), str(?h), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://dhfd/',SHA1(?url))) AS ?dhfd).
+}
+
+#DELETE WHERE {
+#GRAPH <deletedLowLevelChanges> { 
+#?d diachron:hasHierarchy ?h.
+#}
+#}

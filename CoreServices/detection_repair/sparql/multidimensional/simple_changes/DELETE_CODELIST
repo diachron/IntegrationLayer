@@ -1,0 +1,23 @@
+INSERT INTO <changesOntology> {
+?dc a co:Delete_Codelist;
+    co:dc_p1 ?c;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <deletedLowLevelChanges> { 
+?c a diachron:CodeList.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("dc", str(?c), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://dc/',SHA1(?url))) AS ?dc).
+}
+
+#DELETE WHERE {
+#GRAPH <deletedLowLevelChanges> { 
+#?c a diachron:CodeList.
+#}
+#}

@@ -1,0 +1,23 @@
+INSERT INTO <changesOntology> {
+?am a co:Add_Measure;
+    co:am_p1 ?m;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <addedLowLevelChanges> { 
+?m a diachron:MeasureProperty.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("am", str(?m), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://am/',SHA1(?url))) AS ?am).
+}
+
+#DELETE WHERE {
+#GRAPH <addedLowLevelChanges> { 
+#?m a diachron:MeasureProperty.
+#}
+#}

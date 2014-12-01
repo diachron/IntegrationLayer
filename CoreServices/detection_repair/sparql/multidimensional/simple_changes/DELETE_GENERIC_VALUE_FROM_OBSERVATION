@@ -1,0 +1,29 @@
+INSERT INTO <changesOntology> {
+?dgvfo a co:Delete_Generic_Value_From_Observation;
+    co:dgvfo_p1 ?o;
+	co:dgvfo_p2 ?p;
+	co:dgvfo_p3 ?v;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <v1> { 
+FILTER NOT EXISTS { 
+{?p rdf:type diachron:DimensionProperty.}
+UNION 
+{?p rdf:type diachron:MeasureProperty.}
+}
+}
+GRAPH <deletedLowLevelChanges> { 
+?o diachron:hasRecordAttribute ?ratt.
+?ratt rdf:type diachron:RecordAttribute;
+      diachron:predicate ?p;
+	  diachron:object ?v.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("dgvfo",str(?o), str(?p), str(?v), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://dgvfo/',SHA1(?url))) AS ?dgvfo).
+}

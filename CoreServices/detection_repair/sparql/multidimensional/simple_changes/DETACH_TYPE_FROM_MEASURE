@@ -1,0 +1,27 @@
+INSERT INTO <changesOntology> {
+?dtfm a co:Detach_Type_From_Measure;
+    co:dtfm_p1 ?m;
+	co:dtfm_p2 ?t;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <v1> { 
+?m a diachron:MeasureProperty.
+}
+GRAPH <deletedLowLevelChanges> { 
+?m rdfs:range ?t.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("dtfm",str(?m), str(?t), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://dtfm/',SHA1(?url))) AS ?dtfm).
+}
+
+#DELETE WHERE {
+#GRAPH <deletedLowLevelChanges> { 
+#?m rdfs:range ?t.
+#}
+#}

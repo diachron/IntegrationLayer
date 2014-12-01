@@ -1,0 +1,24 @@
+INSERT INTO <changesOntology> {
+?aotft a co:Attach_Observation_To_FT;
+    co:aotft_p1 ?o;
+	co:aotft_p2 ?ft;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <addedLowLevelChanges> { 
+?o diachron:subject ?ft.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("aotft",str(?o), str(?ft), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://aotft/',SHA1(?url))) AS ?aotft).
+}
+
+#DELETE WHERE {
+#GRAPH <addedLowLevelChanges> { 
+#?o diachron:subject ?ft.
+#}
+#}

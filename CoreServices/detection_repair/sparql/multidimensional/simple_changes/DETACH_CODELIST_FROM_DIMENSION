@@ -1,0 +1,24 @@
+INSERT INTO <changesOntology> {
+?dcfd a co:Detach_Codelist_From_Dimension;
+    co:dcfd_p1 ?d;
+	co:dcfd_p2 ?c;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <deletedLowLevelChanges> { 
+?d diachron:codelist ?c.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("dcfd",str(?d), str(?c), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://dcfd/',SHA1(?url))) AS ?dcfd).
+}
+
+#DELETE WHERE {
+#GRAPH <deletedLowLevelChanges> { 
+#?d diachron:codelist ?c.
+#}
+#}

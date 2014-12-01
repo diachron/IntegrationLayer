@@ -1,0 +1,27 @@
+INSERT INTO <changesOntology> {
+?dd a co:Delete_Definition;
+    co:dd_p1 ?a;
+    co:dd_p2 ?x;
+    co:old_version ?v1;
+    co:new_version ?v2;
+    co:consumes ?dpi.
+} 
+WHERE {
+GRAPH <changesOntology> {
+?dpi a co:Delete_Property_Instance;
+     co:dpi_p1 ?dpi1;
+     co:dpi_p2 ?dpi2;
+     co:dpi_p3 ?dpi3;
+     co:old_version ?v1;
+     co:new_version ?v2.
+FILTER NOT EXISTS { ?dd co:consumes ?dpi. }.
+filter(?dpi2 = efo:definition).
+BIND (?dpi1 as ?a).
+BIND (?dpi3 as ?x).
+BIND(concat(str(?a), str(?x), str(?v1), str(?v2)) as ?url) .
+filter ('v1'=?v1).
+filter ('v2'=?v2).
+
+BIND(IRI(CONCAT('http://dd/',SHA1(?url))) AS ?dd).
+}
+}

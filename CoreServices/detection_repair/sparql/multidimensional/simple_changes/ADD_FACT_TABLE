@@ -1,0 +1,23 @@
+INSERT INTO <changesOntology> {
+?aft a co:Add_Fact_Table;
+    co:aft_p1 ?f;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <addedLowLevelChanges> { 
+?f a diachron:FactTable.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("aft", str(?f), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://aft/',SHA1(?url))) AS ?aft).
+}
+
+#DELETE WHERE {
+#GRAPH <addedLowLevelChanges> { 
+#?f a diachron:FactTable.
+#}
+#}

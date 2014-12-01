@@ -1,0 +1,24 @@
+INSERT INTO <changesOntology> {
+?dr a co:Delete_Relevancy;
+    co:dr_p1 ?x;
+	co:dr_p2 ?y;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <deletedLowLevelChanges> { 
+?x diachron:isRelevantTo ?y
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("dr", str(?x), str(?y), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://dr/',SHA1(?url))) AS ?dr).
+}
+
+#DELETE WHERE {
+#GRAPH <deletedLowLevelChanges> { 
+#?x diachron:isRelevantTo ?y
+#}
+#}

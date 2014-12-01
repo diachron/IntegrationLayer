@@ -1,0 +1,23 @@
+INSERT INTO <changesOntology> {
+?ad a co:Add_Dimension;
+    co:adim_p1 ?d;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <addedLowLevelChanges> { 
+?d a diachron:DimensionProperty.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("ad", str(?d), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://ad/',SHA1(?url))) AS ?ad).
+}
+
+#DELETE WHERE {
+#GRAPH <addedLowLevelChanges> { 
+#?d a diachron:DimensionProperty.
+#}
+#}

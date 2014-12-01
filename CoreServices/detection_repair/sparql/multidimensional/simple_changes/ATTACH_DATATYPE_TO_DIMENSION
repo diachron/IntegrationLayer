@@ -1,0 +1,27 @@
+INSERT INTO <changesOntology> {
+?adtd a co:Attach_Datatype_To_Dimension;
+    co:adtd_p1 ?d;
+	co:adtd_p2 ?t;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <v2> { 
+?d a diachron:DimensionProperty.
+}
+GRAPH <addedLowLevelChanges> { 
+?d rdfs:range ?t.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("adtd", str(?d), str(?t), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://adtd/',SHA1(?url))) AS ?adtd).
+}
+
+#DELETE WHERE {
+#GRAPH <addedLowLevelChanges> { 
+#?d rdfs:range ?t.
+#}
+#}

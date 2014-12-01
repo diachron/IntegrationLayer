@@ -1,0 +1,25 @@
+INSERT INTO <changesOntology> {
+?dd a co:Delete_Datatype;
+    co:dd_p1 ?x;
+	co:dd_p2 ?t;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <v1> { 
+FILTER NOT EXISTS { 
+{?x rdf:type diachron:DimensionProperty.}
+UNION 
+{?x rdf:type diachron:MeasureProperty.}
+}
+}
+GRAPH <deletedLowLevelChanges> { 
+?x rdfs:range ?t.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("dd",str(?x), str(?t), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://dd/',SHA1(?url))) AS ?dd).
+}

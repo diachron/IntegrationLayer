@@ -1,0 +1,23 @@
+INSERT INTO <changesOntology> {
+?dm a co:Delete_Measure;
+    co:dm_p1 ?m;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <deletedLowLevelChanges> { 
+?m a diachron:MeasureProperty.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("dm", str(?m), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://dm/',SHA1(?url))) AS ?dm).
+}
+
+#DELETE WHERE {
+#GRAPH <deletedLowLevelChanges> { 
+#?m a diachron:MeasureProperty.
+#}
+#}

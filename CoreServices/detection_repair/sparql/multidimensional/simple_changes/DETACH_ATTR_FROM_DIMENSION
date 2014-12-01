@@ -1,0 +1,27 @@
+INSERT INTO <changesOntology> {
+?dafd a co:Detach_Attr_From_Dimension;
+    co:dafd_p1 ?d;
+	co:dafd_p2 ?a;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <v1> { 
+?d a diachron:DimensionProperty.
+}
+GRAPH <deletedLowLevelChanges> { 
+?d diachron:hasAttribute ?a.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("dafd", str(?d), str(?a), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://dafd/',SHA1(?url))) AS ?dafd).
+}
+
+#DELETE WHERE {
+#GRAPH <deletedLowLevelChanges> { 
+#?d diachron:hasAttribute ?a.
+#}
+#}

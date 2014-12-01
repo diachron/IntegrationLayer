@@ -1,0 +1,23 @@
+INSERT INTO <changesOntology> {
+?do a co:Delete_Observation;
+    co:do_p1 ?o;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <deletedLowLevelChanges> { 
+?o a diachron:Observation.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("do", str(?o), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://do/',SHA1(?url))) AS ?do).
+}
+
+#DELETE WHERE {
+#GRAPH <deletedLowLevelChanges> { 
+#?o a diachron:Observation.
+#}
+#}

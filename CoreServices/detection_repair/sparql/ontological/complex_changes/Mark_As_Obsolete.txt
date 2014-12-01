@@ -1,0 +1,81 @@
+INSERT INTO <changesOntology> {
+?mao a co:Mark_As_Obsolete;
+     co:mao_p1 ?a;
+	 co:mao_p2 ?x;
+     co:old_version ?v1;
+     co:new_version ?v2;
+     co:consumes ?asc;
+     co:consumes ?al;
+     co:consumes ?api;
+	 co:consumes ?dl;
+	 co:consumes ?dsc1;
+	 co:consumes ?dsc2.
+} 
+WHERE {
+GRAPH <changesOntology> {
+?asc a co:Add_Superclass;
+     co:asc_p1 ?asc1;
+     co:asc_p2 ?asc2;
+     co:old_version ?v1;
+     co:new_version ?v2.
+FILTER NOT EXISTS { ?mao co:consumes ?asc. }.
+FILTER (?asc2 = <http://www.geneontology.org/formats/oboInOwl#ObsoleteClass>).
+BIND(?asc1 as ?a).
+
+OPTIONAL {
+?al a co:Add_Label;
+    co:al_p1 ?al1;
+    co:al_p2 ?al2;
+    co:old_version ?v1;
+    co:new_version ?v2.
+FILTER NOT EXISTS { ?mao co:consumes ?al. }.
+FILTER(?al1 = ?asc1).
+FILTER(regex(str(?al2), 'obsolete_')).
+}
+
+OPTIONAL {
+?api a co:Add_Property_Instance;
+     co:api_p1 ?api1;
+     co:api_p2 ?api2;
+     co:api_p3 ?api3;
+     co:old_version ?v1;
+     co:new_version ?v2.
+FILTER NOT EXISTS { ?mao co:consumes ?api. }.
+FILTER(?api2 = efo:reason_for_obsolescence).
+FILTER(?api1 = ?asc1).
+}
+BIND(if(bound(?api3),?api3,'unbounded_value') as ?x).
+
+OPTIONAL {
+?dl a co:Delete_Label;
+    co:dl_p1 ?dl1;
+    co:dl_p2 ?dl2;
+    co:old_version ?v1;
+    co:new_version ?v2.
+FILTER(?dl1 = ?asc1).
+}
+
+OPTIONAL {
+?dsc1 a co:Delete_Superclass;
+     co:dsc_p1 ?dsc1_1;
+     co:dsc_p2 ?dsc1_2;
+     co:old_version ?v1;
+     co:new_version ?v2.
+FILTER(?dsc1_1 = ?asc1).
+}
+
+OPTIONAL {
+?dsc2 a co:Delete_Superclass;
+     co:dsc_p1 ?dsc2_1;
+     co:dsc_p2 ?dsc2_2;
+     co:old_version ?v1;
+     co:new_version ?v2.
+FILTER(?dsc2_2 = ?asc1).
+}
+
+BIND(concat(str(?a), str(?x), str(?v1), str(?v2)) as ?url) .
+filter ('v1'=?v1).
+filter ('v2'=?v2).
+BIND(IRI(CONCAT('http://mao/',SHA1(?url))) AS ?mao).
+}
+}

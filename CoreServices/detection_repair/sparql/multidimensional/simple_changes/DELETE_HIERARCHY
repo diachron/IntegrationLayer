@@ -1,0 +1,23 @@
+INSERT INTO <changesOntology> {
+?dh a co:Delete_Hierarchy;
+    co:dh_p1 ?h;
+    co:old_version ?v1;
+    co:new_version ?v2.
+}
+WHERE {
+GRAPH <deletedLowLevelChanges> { 
+?h a diachron:Hierarchy.
+}
+#
+BIND(IRI('v1') as ?v1).
+BIND(IRI('v2') as ?v2).
+BIND(concat("dh", str(?h), str(?v1), str(?v2)) as ?url) .
+#
+BIND(IRI(CONCAT('http://dh/',SHA1(?url))) AS ?dh).
+}
+
+#DELETE WHERE {
+#GRAPH <deletedLowLevelChanges> { 
+#?h a diachron:Hierarchy.
+#}
+#}
