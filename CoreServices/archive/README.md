@@ -33,7 +33,7 @@ More details about this in deliverable D6.3 (Section 3.1.5.2)
 ```
 mvn clean package
 ```
-This will produce a war file including all the necessary dependencies. You can the deploy the war file as standard web application in Tomcat or JBoss.
+This will produce a war file including all the necessary dependencies. You can then deploy the war file as standard web application in Tomcat or JBoss.
 
 
 
