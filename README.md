@@ -50,13 +50,15 @@ To run the assessment framework, the run parameter is required - ```./assessment
  
 The module has one configuration file webservices.properties. This allows you to change the domain, port and application name for the web service. Changing the properties file would require a new build. 
 
+For more information please check the module [README.MD](https://raw.githubusercontent.com/diachron/IntegrationLayer/master/CoreServices/quality-luzzu-integration/README.md) file
+
 ## d. Integration Layer Building ##
 
 To build the DIACHRON Integration layer execute ```mvn clean install``` in the terminal.
 
 The three main configuration files that need manipulation are:
-	* web.xml
-    * integration_platform.properties
-    * apache_shiro.properties
+* web.xml
+* integration_platform.properties
+* apache_shiro.properties
 
 More information can be found at D6.3
