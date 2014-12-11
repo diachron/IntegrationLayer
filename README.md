@@ -36,6 +36,7 @@ where ```activemq_install_dir``` is the directory in which ActiveMQ was installe
 
 ###  Detection Module ###
 At the time the IntegrationLayer was created, the Change Detection module was not in a Maven form so, it was uploaded as a Webapplication project with the correlated services. However, it is now converted in a Maven project and it can be found under this brach: https://github.com/diachron/detection_repair_maven. This branch contains the pom file along with the required libraries. 
+
 Details on how it can be configured and deployded can be found in the [Readme](https://github.com/diachron/detection_repair_maven/blob/master/README.md) file which can be found in the branch as well. 
 
 
