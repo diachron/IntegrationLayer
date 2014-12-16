@@ -7,7 +7,7 @@
 	<name>Diachron Quality Metrics</name>
 
 	<properties>
-		<jdk.version>1.6</jdk.version>
+		<jdk.version>1.7</jdk.version>
 
 		<log4j.version>1.2.16</log4j.version>
 		<slf4j.version>1.7.5</slf4j.version>
@@ -15,7 +15,8 @@
 		<rdf2go.version>4.8.2</rdf2go.version>
 		<jena.version>2.11.0</jena.version>
 		<jung.version>2.0.1</jung.version>
-
+		<mapdb.version>1.0.6</mapdb.version>
+		<luzzu.version>1.0.0</luzzu.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -41,10 +42,6 @@
 				<updatePolicy>always</updatePolicy>
 				<checksumPolicy>fail</checksumPolicy>
 			</snapshots>
-		</repository>
-		<repository>
-			<id>dropbox</id>
-			<url>http://dl.dropboxusercontent.com/u/5895290/mvn-repo</url>
 		</repository>
 	</repositories>
 
@@ -74,13 +71,13 @@
 		<dependency>
 			<groupId>de.unibonn.iai.eis</groupId>
 			<artifactId>luzzu-assessment</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${luzzu.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>de.unibonn.iai.eis</groupId>
 			<artifactId>luzzu-operations</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${luzzu.version}</version>
 		</dependency>
 
 		<!-- Logging -->
@@ -158,6 +155,25 @@
 			<artifactId>commons-math</artifactId>
 			<version>2.2</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.mapdb</groupId>
+		    <artifactId>mapdb</artifactId>
+		    <version>${mapdb.version}</version>
+		</dependency>
+				
+		
+		<!-- Guava libraries (Bloom Filter, etc.) -->
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>18.0</version>
+		</dependency>
+
+<dependency>
+	<groupId>commons-io</groupId>
+	<artifactId>commons-io</artifactId>
+	<version>2.4</version>
+</dependency>
 	</dependencies>
 
 
@@ -185,6 +201,41 @@
 					</execution>
 				</executions>
 			</plugin>
+			
+			<plugin>
+			  <artifactId>maven-assembly-plugin</artifactId>
+			  <configuration>
+			    <!-- <archive>
+			      <manifest>
+			        <mainClass>fully.qualified.MainClass</mainClass>
+			      </manifest>
+			    </archive> -->
+			    <descriptorRefs>
+			      <descriptorRef>jar-with-dependencies</descriptorRef>
+			    </descriptorRefs>
+          <source>1.7</source>
+          <target>1.7</target>
+			  </configuration>
+			  <executions>
+			    <execution>
+			      <id>make-assembly</id> <!-- this is used for inheritance merges -->
+			      <phase>package</phase> <!-- bind to the packaging phase -->
+			      <goals>
+			        <goal>single</goal>
+			      </goals>
+			    </execution>
+			  </executions>
+			</plugin>
+			
+							      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+			
 		</plugins>
 		<pluginManagement>
 			<plugins>
