@@ -32,6 +32,8 @@ public class ComplexChangeQueryDispatcherResource
     public String Dispatcher(final String inputMessage)
     throws JSONException            
     {
+        final String dispatchID = UUID.randomUUID().toString().replaceAll("-", "");
+        
         Thread thread = new Thread()
         {
             JSONObject jsonInputMessage = new JSONObject(inputMessage);
@@ -51,8 +53,8 @@ public class ComplexChangeQueryDispatcherResource
         };
         
         thread.start();
-        
-        return "Dispatched ";
+
+        return "{ \"Status\": \"Dispatched\", \"id\":\"" + dispatchID +"\"}";        
     }
 
 
