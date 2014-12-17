@@ -44,7 +44,6 @@ public class CrawlingServiceResource
     @Consumes(MediaType.WILDCARD)        
     public Response insertRDFDUmpDataset(String inputMessage)
     {
-        Subject currentUser = SecurityUtils.getSubject();   
         JSONObject jsonOutputMessage = new JSONObject();
         JSONObject jsonInputMessage = null;
         String url = null;
@@ -62,38 +61,20 @@ public class CrawlingServiceResource
             Logger.getLogger(CrawlingServiceResource.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if(currentUser.isAuthenticated())
-        {
-            ExternalResourcesLoader loader = new RDFDumpLoader();
-            loader.setUrl(url);
-            loader.initConnection();
-            rdfTriples = loader.loadData();
-            DataAccessModuleBase dataAccessModuleBase = new DataAccessModuleBase();
-            dataAccessModuleBase.insertTriplesToNamedGraph(namedGraph, rdfTriples);
-            try {
+        ExternalResourcesLoader loader = new RDFDumpLoader();
+        loader.setUrl(url);
+        loader.initConnection();
+        rdfTriples = loader.loadData();
+        DataAccessModuleBase dataAccessModuleBase = new DataAccessModuleBase();
+        dataAccessModuleBase.insertTriplesToNamedGraph(namedGraph, rdfTriples);
+
+        try {
                 jsonOutputMessage.put("Status", "Success");
             } catch (JSONException ex) {
                 Logger.getLogger(CrawlingServiceResource.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            return Response.status(Response.Status.OK).entity(jsonOutputMessage).build();
         }
-        else
-        {            
-            ErrorMessageBase errorMessage = new ErrorMessageBase();
-            errorMessage.setDatasetInformation("generic");
-            errorMessage.setErrorMessage("AuthenticationProblem");
-            errorMessage.setOriginProblematicModule("Apache Shiro");
-            JSONObject jsonErrorMessage = null;
             
-            try {
-                jsonErrorMessage = errorMessage.serializeMessageToJSON();
-            } catch (JSONException ex) {
-                Logger.getLogger(CrawlingServiceResource.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonErrorMessage).build();
-        }   
+        return Response.status(Response.Status.OK).entity(jsonOutputMessage).build();
     }
 
 

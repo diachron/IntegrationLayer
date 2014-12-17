@@ -51,16 +51,13 @@ public class DeirifyResource {
     public Response getJson()
     {
         String state;
-        Subject currentUser = SecurityUtils.getSubject();   
         PropertiesManager propertiesManager = PropertiesManager.getPropertiesManager();
         JSONObject jsonOutputMessage = null;
         GenericCacheInterface cache = BasicCache.getBasicCache();
         
-        if (currentUser.isAuthenticated())
+        String query = "SELECT * FROM <http://www.diachron-fp7.eu/resource/recordset/efo/2.45> WHERE {?a ?p ?o} limit 100";
+        if((jsonOutputMessage = (JSONObject)cache.get(query))==null)
         {
-            String query = "SELECT * FROM <http://www.diachron-fp7.eu/resource/recordset/efo/2.45> WHERE {?a ?p ?o} limit 100";            
-            if((jsonOutputMessage = (JSONObject)cache.get(query))==null)
-            {
                 Client c = Client.create();
                 String queryType = new String("SELECT");
 
@@ -72,26 +69,9 @@ public class DeirifyResource {
 
                 System.out.println(jsonOutputMessage);
                 cache.put(query, jsonOutputMessage);
-            }
+        }
             
-            return Response.status(Response.Status.OK).entity(jsonOutputMessage).build();
-            
-        } else {
-            
-            ErrorMessageBase errorMessage = new ErrorMessageBase();
-            errorMessage.setDatasetInformation("generic");
-            errorMessage.setErrorMessage("AuthenticationProblem");
-            errorMessage.setOriginProblematicModule("Apache Shiro");
-            JSONObject jsonErrorMessage = null;
-            
-            try {
-                jsonErrorMessage = errorMessage.serializeMessageToJSON();
-            } catch (JSONException ex) {
-                Logger.getLogger(ArchivingService.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonErrorMessage).build();
-        }        
+        return Response.status(Response.Status.OK).entity(jsonOutputMessage).build();
     }
 
 }

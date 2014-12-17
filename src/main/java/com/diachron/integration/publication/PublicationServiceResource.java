@@ -39,7 +39,6 @@ public class PublicationServiceResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response convert(String inputMessage)
     {
-        Subject currentUser = SecurityUtils.getSubject();   
         JSONObject jsonOutputMessage = new JSONObject();
         GenericCacheInterface cache = BasicCache.getBasicCache();
         JSONObject jsonInputMessage = new JSONObject();
@@ -59,38 +58,18 @@ public class PublicationServiceResource {
             Logger.getLogger(PublicationServiceResource.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if(currentUser.isAuthenticated())
-        {
-            PublicationManager publicationManager = new PublicationManager();
-            publicationManager.setUrl(url);
-            publicationManager.setInputMIMEType(Lang.get(inputType));
-            publicationManager.setReturnMIMEType(returnType);
-            publicationManager.convert();
+        PublicationManager publicationManager = new PublicationManager();
+        publicationManager.setUrl(url);
+        publicationManager.setInputMIMEType(Lang.get(inputType));
+        publicationManager.setReturnMIMEType(returnType);
+        publicationManager.convert();
             
-            try {
+        try {
                 jsonOutputMessage.put("Status", "Success");
             } catch (JSONException ex) {
                 Logger.getLogger(PublicationServiceResource.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            return Response.status(Response.Status.OK).entity(jsonOutputMessage).build();
         }
-        else
-        {            
-            ErrorMessageBase errorMessage = new ErrorMessageBase();
-            errorMessage.setDatasetInformation("generic");
-            errorMessage.setErrorMessage("AuthenticationProblem");
-            errorMessage.setOriginProblematicModule("Apache Shiro");
-            JSONObject jsonErrorMessage = null;
             
-            try {
-                jsonErrorMessage = errorMessage.serializeMessageToJSON();
-            } catch (JSONException ex) {
-                Logger.getLogger(PublicationServiceResource.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonErrorMessage).build();
-        }        
-        
+        return Response.status(Response.Status.OK).entity(jsonOutputMessage).build();        
     }
 }

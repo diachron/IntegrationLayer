@@ -36,27 +36,12 @@ public class QualityServiceResource {
     @Consumes(MediaType.WILDCARD)    
     public Response retrieveQualityMetrics(String inputMessage)
     {
-        Subject currentUser = SecurityUtils.getSubject();   
         JSONObject jsonOutputMessage = null;
         GenericCacheInterface cache = BasicCache.getBasicCache();
         String query = "null";
         
-        /*
-        try
+        if((jsonOutputMessage = (JSONObject)cache.get(query))==null)
         {
-            jsonInputMessage = new JSONObject();
-            Logger.getLogger(ArchivingService.class.getName()).log(Level.INFO, "Type={0}", jsonInputMessage.getString("returnType"));
-        }
-        catch (JSONException ex)
-        {
-            Logger.getLogger(ArchivingService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
-        
-        if(currentUser.isAuthenticated())
-        {
-            if((jsonOutputMessage = (JSONObject)cache.get(query))==null)
-            {
                 try {
                     JSONObject jsonInputMessage = new JSONObject(inputMessage);                    
                     String url = (String)jsonInputMessage.get("Dataset");
@@ -66,30 +51,11 @@ public class QualityServiceResource {
                     jsonOutputMessage = qualityAssessentModuleBase.retrieveQualityMetrics(url, qualityReportRequired, metrics).getEntity(JSONObject.class);
                     System.out.println(jsonOutputMessage);
 
-                    //cache.put(query, jsonOutputMessage);
                 } catch (JSONException ex) {
                     Logger.getLogger(QualityServiceResource.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            
-            return Response.status(Response.Status.OK).entity(jsonOutputMessage).build();
         }
-        else
-        {            
-            ErrorMessageBase errorMessage = new ErrorMessageBase();
-            errorMessage.setDatasetInformation("generic");
-            errorMessage.setErrorMessage("AuthenticationProblem");
-            errorMessage.setOriginProblematicModule("Apache Shiro");
-            JSONObject jsonErrorMessage = null;
             
-            try {
-                jsonErrorMessage = errorMessage.serializeMessageToJSON();
-            } catch (JSONException ex) {
-                Logger.getLogger(ArchivingService.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonErrorMessage).build();
-        }        
-        
+        return Response.status(Response.Status.OK).entity(jsonOutputMessage).build();        
     }
 }

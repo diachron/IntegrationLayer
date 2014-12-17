@@ -39,55 +39,25 @@ public class ArchivingService {
     @Consumes(MediaType.APPLICATION_JSON)    
     public Response processQuery(ArchiveQueryInputMessage inputMessage)
     {
-        Subject currentUser = SecurityUtils.getSubject();   
         JSONObject jsonOutputMessage = null;
         GenericCacheInterface cache = BasicCache.getBasicCache();
         JSONObject jsonInputMessage;
         String query = null;
         
-//        try
-//        {
-            //jsonInputMessage = new JSONObject(inputMessage);
-            query = inputMessage.getQuery();
-            //Logger.getLogger(ArchivingService.class.getName()).log(Level.INFO, "Type={0}", jsonInputMessage.getString("returnType"));
-//        }
-/*        catch (JSONException ex)
+        query = inputMessage.getQuery();
+        if((jsonOutputMessage = (JSONObject)cache.get(query))==null)
         {
-            Logger.getLogger(ArchivingService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-*/        
-        if(currentUser.isAuthenticated())
-        {
-            if((jsonOutputMessage = (JSONObject)cache.get(query))==null)
-            {
-                DataAccessModuleBase dataAccessModuleBase = new DataAccessModuleBase();
-                jsonOutputMessage = dataAccessModuleBase.executeSPARQLArchiveCall(query,
+            DataAccessModuleBase dataAccessModuleBase = new DataAccessModuleBase();
+            jsonOutputMessage = dataAccessModuleBase.executeSPARQLArchiveCall(query,
                                                                                   "SELECT",
                                                                                   MediaType.APPLICATION_JSON)
                                                                                   .getEntity(JSONObject.class);
-                System.out.println(jsonOutputMessage);
+            System.out.println(jsonOutputMessage);
                 
-                cache.put(query, jsonOutputMessage);
-            }
-            
-            return Response.status(Response.Status.OK).entity(jsonOutputMessage).build();
+            cache.put(query, jsonOutputMessage);
         }
-        else
-        {            
-            ErrorMessageBase errorMessage = new ErrorMessageBase();
-            errorMessage.setDatasetInformation("generic");
-            errorMessage.setErrorMessage("AuthenticationProblem");
-            errorMessage.setOriginProblematicModule("Apache Shiro");
-            JSONObject jsonErrorMessage = null;
             
-            try {
-                jsonErrorMessage = errorMessage.serializeMessageToJSON();
-            } catch (JSONException ex) {
-                Logger.getLogger(ArchivingService.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsonErrorMessage).build();
-        }        
+        return Response.status(Response.Status.OK).entity(jsonOutputMessage).build();
     }
       
     private static void convert(String json)
