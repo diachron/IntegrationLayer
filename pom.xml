@@ -21,6 +21,7 @@
             <artifactId>json</artifactId>
             <version>20131018</version>
         </dependency>
+        <!--
         <dependency>
             <groupId>athena.org</groupId>
             <artifactId>data-mapping-bundle</artifactId>
@@ -31,6 +32,7 @@
             <artifactId>data-mapping-bundle-sys</artifactId>
             <version>1.0.0</version>
         </dependency>
+        -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>

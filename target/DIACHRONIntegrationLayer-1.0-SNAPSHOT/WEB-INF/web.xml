@@ -41,12 +41,12 @@
             <param-value>file:///home/panos/NetBeansProjects/diachron/apache_shiro.properties</param-value>
         </init-param>
     </filter>
-
+<!--
     <filter-mapping>
         <filter-name>SecurityFilter</filter-name>
         <url-pattern>/webresources/EvaluateDispatcher</url-pattern>
     </filter-mapping>
-<!--
+
 
     <filter-mapping>
         <filter-name>SecurityFilter</filter-name>

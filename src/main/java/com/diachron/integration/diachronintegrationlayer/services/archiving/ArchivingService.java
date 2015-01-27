@@ -40,26 +40,19 @@ public class ArchivingService {
     public Response processQuery(ArchiveQueryInputMessage inputMessage)
     {
         JSONObject jsonOutputMessage = null;
-        GenericCacheInterface cache = BasicCache.getBasicCache();
         JSONObject jsonInputMessage;
         String query = null;
-        
+
         query = inputMessage.getQuery();
-        if((jsonOutputMessage = (JSONObject)cache.get(query))==null)
-        {
-            DataAccessModuleBase dataAccessModuleBase = new DataAccessModuleBase();
-            jsonOutputMessage = dataAccessModuleBase.executeSPARQLArchiveCall(query,
+        DataAccessModuleBase dataAccessModuleBase = new DataAccessModuleBase();
+        jsonOutputMessage = dataAccessModuleBase.executeSPARQLArchiveCall(query,
                                                                                   "SELECT",
-                                                                                  MediaType.APPLICATION_JSON)
-                                                                                  .getEntity(JSONObject.class);
-            System.out.println(jsonOutputMessage);
-                
-            cache.put(query, jsonOutputMessage);
-        }
-            
+                                                                                  MediaType.APPLICATION_JSON)                                                                                  .getEntity(JSONObject.class);
+        System.out.println(jsonOutputMessage);
+
         return Response.status(Response.Status.OK).entity(jsonOutputMessage).build();
     }
-      
+
     private static void convert(String json)
     {
         InputStream is;        
