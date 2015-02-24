@@ -20,6 +20,16 @@
 			<name>University Leipzig, AKSW Maven2 Repository</name>
 			<url>http://maven.aksw.org/archiva/repository/internal</url>
 		</repository>
+		<repository>
+			<id>virtjdbc4.snapshots/</id>
+			<name>University Leipzig, AKSW Maven2 virtjdbc4 Repository</name>
+			<url>http://maven.aksw.org/repository/internal/com/openlink/virtuoso/virtjdbc4/</url>
+		</repository>
+		<repository>
+			<id>virt_jena2.snapshots/</id>
+			<name>University Leipzig, AKSW Maven2 virt_jena2 Repository</name>
+			<url>http://maven.aksw.org/repository/internal/com/openlink/virtuoso/virt_jena2/</url>
+		</repository>
 	</repositories>
 
 	<dependencies>
@@ -42,8 +52,8 @@
 		</dependency>
 		<dependency>
 			<groupId>com.openlink.virtuoso</groupId>
-			<artifactId>virtjena2</artifactId>
-			<version>1.0.0</version>
+			<artifactId>virt_jena2</artifactId>
+			<version>7.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
