@@ -3,6 +3,7 @@ package management.configuration;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
 public final class PropertiesManager
 {
     private static PropertiesManager propManager = null;
-    private static String initFilePath = "/home/panos/NetBeansProjects/diachron/integration_layer_config.properties";
+    private static String initFilePath = "integration_layer_config.properties";
     private static Properties prop;
     
     public static PropertiesManager getPropertiesManager()
@@ -22,8 +23,10 @@ public final class PropertiesManager
         if(propManager==null)
         {
             try {
+                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                InputStream input = classLoader.getResourceAsStream(initFilePath);                                
                 prop = new Properties();
-                prop.load(new FileInputStream(initFilePath));
+                prop.load(input);
                 propManager = new PropertiesManager();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(PropertiesManager.class.getName()).log(Level.SEVERE, null, ex);
