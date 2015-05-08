@@ -1,9 +1,6 @@
 package management.configuration;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,9 +21,17 @@ public final class PropertiesManager
         {
             try {
                 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                InputStream input = classLoader.getResourceAsStream(initFilePath);                                
+                InputStream input = classLoader.getResourceAsStream(initFilePath);
                 prop = new Properties();
                 prop.load(input);
+
+                if (System.getProperty("diachron.config.location") != null) {
+                    InputStream overideInput = new FileInputStream(new File(System.getProperty("diachron.config.location")));
+                    Properties override = new Properties();
+                    override.load(overideInput);
+                    prop.putAll(override);
+                }
+
                 propManager = new PropertiesManager();
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(PropertiesManager.class.getName()).log(Level.SEVERE, null, ex);
