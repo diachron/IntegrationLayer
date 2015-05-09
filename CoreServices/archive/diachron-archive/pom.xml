@@ -10,4 +10,35 @@
   	<module>archive-web-services</module>
   	<module>archive-data-mapping</module>
   </modules>
+
+  <repositories>
+    <repository>
+      <id>maven.aksw.snapshots/</id>
+      <name>University Leipzig, AKSW Maven2 Repository</name>
+      <url>http://maven.aksw.org/archiva/repository/internal</url>
+    </repository>
+    <repository>
+      <id>virtjdbc4.snapshots/</id>
+      <name>University Leipzig, AKSW Maven2 virtjdbc4 Repository</name>
+      <url>http://maven.aksw.org/repository/internal/com/openlink/virtuoso/virtjdbc4/</url>
+    </repository>
+    <repository>
+      <id>virt_jena2.snapshots/</id>
+      <name>University Leipzig, AKSW Maven2 virt_jena2 Repository</name>
+      <url>http://maven.aksw.org/repository/internal/com/openlink/virtuoso/virt_jena2/</url>
+    </repository>
+  </repositories>
+  <build>
+    <plugins>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
