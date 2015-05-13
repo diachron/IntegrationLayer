@@ -38,11 +38,13 @@
             <groupId>diachron-athena</groupId>
             <artifactId>archive-data-mapping</artifactId>
             <version>1.0.1</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>diachron-athena</groupId>
             <artifactId>archive-system</artifactId>
             <version>1.0.1</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.jena</groupId>

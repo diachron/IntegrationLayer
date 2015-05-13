@@ -46,7 +46,6 @@ public class ApplicationConfig extends Application {
         resources.add(com.diachron.integration.services.evaluation.DispatcherEvaluateResource.class);
         resources.add(com.diachron.integration.services.evaluation.EvaluateResource.class);
         resources.add(com.diachron.integration.services.evaluation.UnqueueEvaluateResource.class);
-        resources.add(rdfization.RdfizeProcessResource.class);
     }
     
 }
