@@ -75,178 +75,112 @@
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-client</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <!--<optional>true</optional>-->
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-openwire-legacy</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-camel</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-jaas</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-broker</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-console</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-shiro</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-spring</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-pool</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-jms-pool</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-amqp</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
 
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-mqtt</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-stomp</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-kahadb-store</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq</groupId>
         <artifactId>activemq-jdbc-store</artifactId>
         <version>5.10.0</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.activemq.protobuf</groupId>
         <artifactId>activemq-protobuf</artifactId>
         <version>1.1</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.fusesource.hawtbuf</groupId>
         <artifactId>hawtbuf</artifactId>
         <version>1.10</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.jasypt</groupId>
         <artifactId>jasypt</artifactId>
         <version>1.9.1</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-jms_1.1_spec</artifactId>
         <version>1.1.1</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-j2ee-management_1.1_spec</artifactId>
         <version>1.0.1</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-annotation_1.0_spec</artifactId>
         <version>1.1.1</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
         <version>1.7.5</version>
-        <classifier>sources</classifier>
-        <scope>compile</scope>
-        <optional>true</optional>
     </dependency>
     <dependency>
         <groupId>org.slf4j</groupId>
