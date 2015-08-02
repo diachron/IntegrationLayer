@@ -36,10 +36,10 @@
     <filter>
         <filter-name>SecurityFilter</filter-name>
         <filter-class>org.apache.shiro.web.servlet.IniShiroFilter</filter-class>
-        <init-param>
-            <param-name>configPath</param-name>
-            <param-value>file:///home/panos/NetBeansProjects/diachron/apache_shiro.properties</param-value>
-        </init-param>
+        <!--<init-param>-->
+            <!--<param-name>configPath</param-name>-->
+            <!--<param-value>file:////Users/jupp/dev/java/Diachron-IntegrationLayer/apache_shiro.properties</param-value>-->
+        <!--</init-param>-->
     </filter>
 
     <!--
